@@ -41,15 +41,19 @@ You do not need to compile the callout to use it.
 It is usable as is, in pre-built form. Just grab [the jar from this repository](bundle/apiproxy/resources/java/edge-java-callout-prng.jar) and use it.  But if YOU DO wish to build it, here's how you can do so: 
 
 1. clone this repo  
-  ```git clone```
+  ```
+  git clone
+  ```
 
-2. configure the build on your machine by loading the Apigee jars into your local cache.   You need to do this once, ever, on the machine doing the compilation.
-
-  ```./buildsetup.sh```
-
+2. configure the build on your machine by loading the Apigee jars into your local cache.   You need to do this once, ever, on the machine doing the compilation.  
+  ```
+  ./buildsetup.sh
+  ```
 
 3. Build with maven.  
-  ```mvn clean package```
+  ```
+  mvn clean package
+  ```
 
 4. if you edit proxy bundles offline, copy the resulting jar file, available in  target/edge-java-callout-prng.jar to your apiproxy/resources/java directory.  If you don't edit proxy bundles offline, upload the jar file into the API Proxy via the Edge API Proxy Editor . Also upload the Guava jar from the target/lib directory.
 
@@ -60,14 +64,20 @@ It is usable as is, in pre-built form. Just grab [the jar from this repository](
    https://github.com/carloseberhardt/apiploy) or similar to
    import the proxy into an Edge organization, and then deploy the proxy . 
    Eg,   
-   ```./pushapi -v -d -o ORGNAME -e test -n prng bundle```
+   ```
+   ./pushapi -v -d -o ORGNAME -e test -n prng bundle
+   ```
 
 6. Use a client to generate and send http requests to the proxy. Eg,   
-   ```curl -i http://ORGNAME-test.apigee.net/prng/int```
+   ```
+   curl -i http://ORGNAME-test.apigee.net/prng/int
+   ```
    
    or
    
-   ```curl -i http://ORGNAME-test.apigee.net/prng/gaussian```
+   ```
+   curl -i http://ORGNAME-test.apigee.net/prng/gaussian
+   ```
 
 
 ## Dependencies
