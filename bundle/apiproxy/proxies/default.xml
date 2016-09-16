@@ -42,6 +42,16 @@
       <Condition>(proxy.pathsuffix ~ "/gaussian") and (request.verb = "GET")</Condition>
     </Flow>
 
+    <Flow name='test3'>
+      <Description>get random UUID</Description>
+      <Request/>
+      <Response>
+        <Step><Name>Java-PRNG-uuid</Name></Step>
+        <Step><Name>AssignMessage-GoodResponseUUID</Name></Step>
+      </Response>
+      <Condition>(proxy.pathsuffix ~ "/uuid") and (request.verb = "GET")</Condition>
+    </Flow>
+
     <Flow name='unknown'>
       <!--
            applies as a "default" flow, in case none of the conditions
