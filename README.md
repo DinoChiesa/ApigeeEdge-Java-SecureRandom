@@ -46,12 +46,12 @@ It is usable as is, in pre-built form. Just grab [the jar from this repository](
 2. configure the build on your machine by loading the Apigee jars into your local cache
   ```./buildsetup.sh```
 
-   You need to do this once, ever, on the machine doing the compilation.
-   
-2. Build with maven.  
+  You need to do this once, ever, on the machine doing the compilation.
+
+3. Build with maven.  
   ```mvn clean package```
 
-3. if you edit proxy bundles offline, copy the resulting jar file, available in  target/httpsig-edge-callout.jar to your apiproxy/resources/java directory.  If you don't edit proxy bundles offline, upload the jar file into the API Proxy via the Edge API Proxy Editor . 
+4. if you edit proxy bundles offline, copy the resulting jar file, available in  target/edge-java-callout-prng.jar to your apiproxy/resources/java directory.  If you don't edit proxy bundles offline, upload the jar file into the API Proxy via the Edge API Proxy Editor . Also upload the Guava jar from the target/lib directory.
 
 4. include an XML file for the Java callout policy in your
    apiproxy/resources/policies directory. It should look as shown above. 
