@@ -152,6 +152,10 @@ public class SecureRandomCallout implements Execution {
     }
 }
 
+// The randomUUID() method in the java.util.UUID class uses a
+// SecureRandom, but does not allow control over the caching
+// or initialization of that SecureRandom. This helper class
+// allows it. 
 class MyUuid {
     private final long mostSigBits;
     private final long leastSigBits;
@@ -192,4 +196,3 @@ class MyUuid {
                 digits(leastSigBits, 12));
     }
 }
-
