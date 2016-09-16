@@ -1,0 +1,8 @@
+<JavaCallout name='Java-PRNG-int'>
+  <ClassName>com.dinochiesa.edgecallouts.SecureRandomCallout</ClassName>
+  <Properties>
+    <Property name='algorithm'>SHA1PRNG</Property>
+    <Property name='output-type'>int</Property>
+  </Properties>
+  <ResourceURL>java://edge-java-callout-prng.jar</ResourceURL>
+</JavaCallout>
