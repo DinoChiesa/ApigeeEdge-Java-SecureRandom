@@ -40,10 +40,10 @@ The policy caches the java.security.SecureRandom and re-uses it for multiple thr
 You do not need to compile the callout to use it.
 It is usable as is, in pre-built form. Just grab [the jar from this repository](bundle/apiproxy/resources/java/edge-java-callout-prng.jar) and use it.  But if YOU DO wish to build it, here's how you can do so: 
 
-1. clone this repo
+1. clone this repo  
   ```git clone```
 
-2. configure the build on your machine by loading the Apigee jars into your local cache
+2. configure the build on your machine by loading the Apigee jars into your local cache  
   ```./buildsetup.sh```
 
   You need to do this once, ever, on the machine doing the compilation.
@@ -59,7 +59,7 @@ It is usable as is, in pre-built form. Just grab [the jar from this repository](
 5. use the Edge UI, or a command-line tool like pushapi (See
    https://github.com/carloseberhardt/apiploy) or similar to
    import the proxy into an Edge organization, and then deploy the proxy . 
-   Eg,    
+   Eg,   
    ```./pushapi -v -d -o ORGNAME -e test -n prng bundle```
 
 6. Use a client to generate and send http requests to the proxy. Eg,   
