@@ -2,6 +2,7 @@ package com.dinochiesa.testng.tests;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -171,6 +172,31 @@ public class TestSecureRandomCallout {
     }
 
 
+    @Test
+    public void testRandomUuid_NativePRNG() {
+        String alg = "NativePRNG";
+
+        Map properties = new HashMap();
+        properties.put("algorithm", alg);
+        properties.put("output-type", "uuid");
+
+        for (int i=0; i < 10; i++) {
+            SecureRandomCallout callout = new SecureRandomCallout(properties);
+            ExecutionResult result = callout.execute(msgCtxt, exeCtxt);
+
+            // check result and output
+            Assert.assertEquals(result, ExecutionResult.SUCCESS);
+
+            // retrieve output
+            String output = msgCtxt.getVariable("prng_random");
+            System.out.printf("output: %s\n", output);
+            Assert.assertNotEquals(output, null, "random");
+            Assert.assertEquals(output.length(), 36, "uuid length");
+            UUID uuid = UUID.fromString(output); // must not throw
+            Assert.assertEquals(uuid.toString(),output, "uuid conversion");
+        }
+    }
+    
     @Test
     public void testBogusOutputType() {
         String alg = "NativePRNG";

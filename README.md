@@ -1,13 +1,15 @@
 # Java Secure Pseudo Random Number Generator
 
-This directory contains the Java source code and pom.xml file required to
-compile a simple Java callout for Apigee Edge. The callout uses java.security.SecureRandom to
-generate random numbers within a policy Apigee Edge proxy, and sets a context variable with that information. 
+This directory contains the Java source code and pom.xml file required
+to compile a simple Java callout for Apigee Edge. The callout uses
+java.security.SecureRandom to generate random numbers (ints, UUIDs, or
+Gaussian values) within a policy Apigee Edge proxy, and sets a context
+variable with that information.
 
 ## Using this callout
 
 You do not need to compile the callout to use it.
-It is usable as is, in pre-built form.
+It is usable as is, in pre-built form. Just grab [the jar from this repository](bundle/apiproxy/resources/java/edge-java-callout-prng.jar) and use it. 
 
 Configure the policy like this:
 
@@ -26,9 +28,8 @@ The properties:
 
 | Property | Required? | description |
 |:---------|:---------|:---------|
-| algorithm | no |one of the algorithms returned by Java's
-[java.security.Security.getProviders()](https://docs.oracle.com/javase/7/docs/api/java/security/Security.html#getProviders()). Typically you will use one of these:<ul><li>SHA1PRNG</li><li>NativePRNG</li></ul> Defaults to SHA1PRNG |
-| output-type | no | gaussian, or int.  Defaults to int. A Gaussian output will return the next pseudorandom, Gaussian ("normally") distributed double value with mean 0.0 and standard deviation 1.0, as returned by [java.util.Random.nextGaussian()](https://docs.oracle.com/javase/7/docs/api/java/util/Random.html#nextGaussian()) |
+| algorithm | no |one of the algorithms returned by Java's [java.security.Security.getProviders()](https://docs.oracle.com/javase/7/docs/api/java/security/Security.html#getProviders()). Typically you will use one of these:<ul><li>SHA1PRNG</li><li>NativePRNG</li></ul> Defaults to SHA1PRNG |
+| output-type | no | uuid, gaussian, or int. Defaults to int. A Gaussian output will return the next pseudorandom, Gaussian ("normally") distributed double value with mean 0.0 and standard deviation 1.0, as returned by [java.util.Random.nextGaussian()](https://docs.oracle.com/javase/7/docs/api/java/util/Random.html#nextGaussian()) |
 | decimal-digits | no | The number of decimal digits with which to render the value generated for the Gaussian distribution. The default is 12.  This is ignored when the output-type is int. |
 
 The policy caches the java.security.SecureRandom and re-uses it for multiple threads. This means it should perform well at high load and concurrency. 
@@ -36,7 +37,11 @@ The policy caches the java.security.SecureRandom and re-uses it for multiple thr
 
 ## Building:
 
-1. unpack (if you can read this, you've already done that).
+You do not need to compile the callout to use it.
+It is usable as is, in pre-built form. Just grab [the jar from this repository](bundle/apiproxy/resources/java/edge-java-callout-prng.jar) and use it.  But if YOU DO wish to build it, here's how you can do so: 
+
+1. clone this repo
+  ```git clone```
 
 2. configure the build on your machine by loading the Apigee jars into your local cache
   ```./buildsetup.sh```

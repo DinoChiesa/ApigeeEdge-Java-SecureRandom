@@ -10,6 +10,7 @@ package com.dinochiesa.edgecallouts;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.util.UUID;
 import java.security.SecureRandom;
 import java.security.NoSuchAlgorithmException;
 import org.apache.commons.lang.exception.ExceptionUtils;
@@ -133,6 +134,10 @@ public class SecureRandomCallout implements Execution {
                     String format = "%." + decimalDigits + "f";
                     msgCtxt.setVariable(varName("random"), String.format(format, v));
                     break;
+                case "uuid":
+                    MyUuid uuid = MyUuid.randomUUID(prng);
+                    msgCtxt.setVariable(varName("random"), uuid.toString());
+                    break;
                 default:
                     throw new Exception(String.format("invalid output-type: %s", outputType));
             }
@@ -146,3 +151,45 @@ public class SecureRandomCallout implements Execution {
         }
     }
 }
+
+class MyUuid {
+    private final long mostSigBits;
+    private final long leastSigBits;
+    
+    public static MyUuid randomUUID(SecureRandom prng) {
+        byte[] randomBytes = new byte[16];
+
+        prng.nextBytes(randomBytes);
+        randomBytes[6]  &= 0x0f;  /* clear version        */
+        randomBytes[6]  |= 0x40;  /* set to version 4     */
+        randomBytes[8]  &= 0x3f;  /* clear variant        */
+        randomBytes[8]  |= 0x80;  /* set to IETF variant  */
+        return new MyUuid(randomBytes);
+    }
+
+    private MyUuid(byte[] data) {
+        long msb = 0;
+        long lsb = 0;
+        assert data.length == 16;
+        for (int i=0; i<8; i++)
+            msb = (msb << 8) | (data[i] & 0xff);
+        for (int i=8; i<16; i++)
+            lsb = (lsb << 8) | (data[i] & 0xff);
+        this.mostSigBits = msb;
+        this.leastSigBits = lsb;
+    }    
+    
+    private static String digits(long val, int digits) {
+        long hi = 1L << (digits * 4);
+        return Long.toHexString(hi | (val & (hi - 1))).substring(1);
+    }
+    
+    public String toString() {
+        return (digits(mostSigBits >> 32, 8) + "-" +
+                digits(mostSigBits >> 16, 4) + "-" +
+                digits(mostSigBits, 4) + "-" +
+                digits(leastSigBits >> 48, 4) + "-" +
+                digits(leastSigBits, 12));
+    }
+}
+

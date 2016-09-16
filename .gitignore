@@ -8,6 +8,5 @@ Icon
 *.*~
 
 **/target/
-**/*.jar
 **/*.class
 
