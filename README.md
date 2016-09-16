@@ -43,10 +43,10 @@ It is usable as is, in pre-built form. Just grab [the jar from this repository](
 1. clone this repo  
   ```git clone```
 
-2. configure the build on your machine by loading the Apigee jars into your local cache  
+2. configure the build on your machine by loading the Apigee jars into your local cache.   You need to do this once, ever, on the machine doing the compilation.
+
   ```./buildsetup.sh```
 
-  You need to do this once, ever, on the machine doing the compilation.
 
 3. Build with maven.  
   ```mvn clean package```
