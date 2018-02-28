@@ -1,0 +1,16 @@
+<AssignMessage name='AM-GoodResponse'>
+  <Remove>
+    <Headers/>
+  </Remove>
+  <Set>
+    <Payload contentType='application/json'>{
+  "message" : "ok",
+  "system.uuid" : "{system.uuid}",
+  "random" : {prng_random}
+}
+</Payload>
+    <StatusCode>200</StatusCode>
+    <ReasonPhrase>OK</ReasonPhrase>
+  </Set>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</AssignMessage>

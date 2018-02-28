@@ -1,9 +1,8 @@
-<ProxyEndpoint name='default'>
+<ProxyEndpoint name='endpoint1'>
   <Description>Proxy for Java callout to do Secure RNG</Description>
   <HTTPProxyConnection>
     <BasePath>/prng</BasePath>
     <Properties/>
-    <VirtualHost>default</VirtualHost>
     <VirtualHost>secure</VirtualHost>
   </HTTPProxyConnection>
 
@@ -27,7 +26,7 @@
       <Request/>
       <Response>
         <Step><Name>Java-PRNG-int</Name></Step>
-        <Step><Name>AssignMessage-GoodResponse</Name></Step>
+        <Step><Name>AM-GoodResponse</Name></Step>
       </Response>
       <Condition>(proxy.pathsuffix ~ "/int") and (request.verb = "GET")</Condition>
     </Flow>
@@ -37,7 +36,7 @@
       <Request/>
       <Response>
         <Step><Name>Java-PRNG-gaussian</Name></Step>
-        <Step><Name>AssignMessage-GoodResponse</Name></Step>
+        <Step><Name>AM-GoodResponse</Name></Step>
       </Response>
       <Condition>(proxy.pathsuffix ~ "/gaussian") and (request.verb = "GET")</Condition>
     </Flow>
@@ -47,7 +46,7 @@
       <Request/>
       <Response>
         <Step><Name>Java-PRNG-uuid</Name></Step>
-        <Step><Name>AssignMessage-GoodResponseUUID</Name></Step>
+        <Step><Name>AM-GoodResponseUUID</Name></Step>
       </Response>
       <Condition>(proxy.pathsuffix ~ "/uuid") and (request.verb = "GET")</Condition>
     </Flow>
@@ -59,7 +58,7 @@
       -->
       <Description>Unknown request</Description>
       <Request>
-        <Step><Name>RaiseFault-UnknownRequest</Name></Step>
+        <Step><Name>RF-UnknownRequest</Name></Step>
       </Request>
       <Response/>
     </Flow>

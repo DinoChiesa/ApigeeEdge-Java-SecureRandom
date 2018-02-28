@@ -1,8 +1,8 @@
 <JavaCallout name='Java-PRNG-gaussian'>
-  <ClassName>com.dinochiesa.edgecallouts.SecureRandomCallout</ClassName>
+  <ClassName>com.google.apigee.edgecallouts.prng.SecureRandomCallout</ClassName>
+  <ResourceURL>java://edge-java-callout-prng-1.0.1.jar</ResourceURL>
   <Properties>
     <Property name='algorithm'>SHA1PRNG</Property>
     <Property name='output-type'>gaussian</Property>
   </Properties>
-  <ResourceURL>java://edge-java-callout-prng.jar</ResourceURL>
 </JavaCallout>

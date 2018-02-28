@@ -1,4 +1,4 @@
-package com.dinochiesa.testng.tests;
+package com.google.apigee.testng.tests;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +19,7 @@ import com.apigee.flow.execution.ExecutionResult;
 import com.apigee.flow.message.MessageContext;
 import com.apigee.flow.message.Message;
 
-import com.dinochiesa.edgecallouts.SecureRandomCallout;
+import com.google.apigee.edgecallouts.prng.SecureRandomCallout;
 
 public class TestSecureRandomCallout {
     private final static String testDataDir = "src/test/resources/test-data";
@@ -104,7 +104,7 @@ public class TestSecureRandomCallout {
             System.out.printf("output: %s\n", output);
         }
     }
-    
+
     @Test
     public void testRandomDefault_SHA1PRNG() {
         String alg = "SHA1PRNG";
@@ -196,7 +196,7 @@ public class TestSecureRandomCallout {
             Assert.assertEquals(uuid.toString(),output, "uuid conversion");
         }
     }
-    
+
     @Test
     public void testBogusOutputType() {
         String alg = "NativePRNG";
