@@ -16,7 +16,7 @@
     <apiproxy.java.rsrc.dir>../bundle/apiproxy/resources/java</apiproxy.java.rsrc.dir>
     <testng.version>6.8.7</testng.version> <!-- current: 6.9.4 -->
     <jmockit.version>1.7</jmockit.version>
-    <guava.version>18.0</guava.version>
+    <guava.version>23.0</guava.version>
   </properties>
 
   <dependencies>
