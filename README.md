@@ -131,5 +131,5 @@ guarantee for responses to inquiries regarding this callout.
 
 ## LICENSE
 
-This material is copyright 2015-2018 Google Inc.
+This material is copyright 2015-2018 Google LLC.
 and is licensed under the Apache 2.0 license. See the [LICENSE](LICENSE) file.
