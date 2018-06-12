@@ -4,7 +4,7 @@
 // This callout is very simple - it invokes java.security.SecureRandom()
 // inserts the result into a context variable.
 //
-// Copyright 2017-2018 Google Inc.
+// Copyright 2017-2018 Google LLC.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -70,7 +70,7 @@ public class SecureRandomCallout extends CalloutBase implements Execution {
     public String getVarnamePrefix() {
         return varprefix;
     }
-    
+
     private String getAlgorithm(MessageContext msgCtxt) throws Exception {
         String alg = getSimpleOptionalProperty("algorithm", msgCtxt);
         if (alg == null) {

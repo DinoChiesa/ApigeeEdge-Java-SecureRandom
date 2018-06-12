@@ -1,6 +1,6 @@
 <JavaCallout name='Java-PRNG-uuid'>
   <ClassName>com.google.apigee.edgecallouts.prng.SecureRandomCallout</ClassName>
-  <ResourceURL>java://edge-java-callout-prng-1.0.1.jar</ResourceURL>
+  <ResourceURL>java://edge-java-callout-prng-1.0.2.jar</ResourceURL>
   <Properties>
     <Property name='algorithm'>SHA1PRNG</Property>
     <Property name='output-type'>uuid</Property>

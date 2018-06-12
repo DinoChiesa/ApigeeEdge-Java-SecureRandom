@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.apigee.callout</groupId>
   <artifactId>edge-java-callout-prng</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2</version>
   <name>EdgeJavaCalloutSecureRandom</name>
   <url>http://maven.apache.org</url>
   <packaging>jar</packaging>
@@ -16,7 +16,7 @@
     <apiproxy.java.rsrc.dir>../bundle/apiproxy/resources/java</apiproxy.java.rsrc.dir>
     <testng.version>6.8.7</testng.version> <!-- current: 6.9.4 -->
     <jmockit.version>1.7</jmockit.version>
-    <guava.version>23.0</guava.version>
+    <guava.version>24.1.1-jre</guava.version>
   </properties>
 
   <dependencies>
@@ -85,6 +85,7 @@ do it manually by running these commands:
       <version>${jmockit.version}</version>
       <scope>test</scope>
     </dependency>
+
   </dependencies>
 
   <build>
@@ -155,7 +156,7 @@ do it manually by running these commands:
                     <!-- copy any required dependencies tht are not
                     already included in the Edge runtime: -->
 
-                    <include name="lib/guava-18.0.jar"/>
+                    <include name="lib/guava-${guava.version}.jar"/>
 
                     <!--                    -->
 

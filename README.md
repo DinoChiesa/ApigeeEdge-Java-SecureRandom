@@ -13,7 +13,7 @@ This example is not an official Google product, nor is it part of an official Go
 ## Using this callout
 
 You do not need to compile the callout to use it.
-It is usable as is, in pre-built form. Just grab [the jar from this repository](bundle/apiproxy/resources/java/edge-java-callout-prng-1.0.1.jar) and use it.
+It is usable as is, in pre-built form. Just grab [the jar from this repository](bundle/apiproxy/resources/java/edge-java-callout-prng-1.0.2.jar) and use it.
 
 Configure the policy like this:
 
@@ -22,11 +22,13 @@ Configure the policy like this:
   <ClassName>com.google.apigee.edgecallouts.prng.SecureRandomCallout</ClassName>
   <Properties>
     <Property name='algorithm'>SHA1PRNG</Property>
-    <Property name='output-type'>gaussian</Property>
+    <Property name='output-type'>int</Property>
   </Properties>
-  <ResourceURL>java://edge-java-callout-prng-1.0.1.jar</ResourceURL>
+  <ResourceURL>java://edge-java-callout-prng-1.0.2.jar</ResourceURL>
 </JavaCallout>
 ```
+
+The callout sets the context variable `prng_random` to a randomly-generated value.
 
 The properties:
 
@@ -39,17 +41,52 @@ The properties:
 The policy caches the java.security.SecureRandom and re-uses it for multiple threads. This means it should perform well at high load and concurrency.
 
 
+## Example output
+
+Example successive values of `prng_random` for int:
+* -1604942246
+* 1436054319
+* 55498893
+* -1631105169
+* 1950692777
+* -1103022666
+* -79584472
+* 1752902214
+* 1820421062
+* -22240590
+* -13385112
+
+Example successive values of `prng_random` for gaussian:
+* -1.026991678598
+* 1.579345979370
+* -1.585246137998
+* 1.567258571580
+* -0.914702253954
+* 0.363466074537
+* -0.453967291420
+
+
+Example successive values of `prng_random` for uuid:
+* 778b4e42-065c-4535-8e1f-1f9d23e6516c
+* eb0c4a87-7100-4ce9-b425-0d99c4f1597f
+* 8a256fa0-ac54-4103-a43f-2b6dd21cf2a1
+* 2386a528-06bd-4043-9ac1-1f9d2aa8361e
+* fd0b04bc-734a-4e82-a262-78eae85f897a
+* 0f0534bd-f623-4fca-bff2-ba58145852c7
+
+Presumably you will use this value in a subsequent policy. See [the example apiproxy](bundle/apiproxy/) for suggestions.
+
 ## Building:
 
 You do not need to compile the callout to use it.  It is usable as is, in pre-built
 form. Just grab [the jar from this
-repository](bundle/apiproxy/resources/java/edge-java-callout-prng-1.0.1.jar) and use it.  But
+repository](bundle/apiproxy/resources/java/edge-java-callout-prng-1.0.2.jar) and use it.  But
 if YOU DO wish to build it, here's how you can do so:
 
 1. clone this repo
-  ```
-  git clone
-  ```
+   ```
+   git clone
+   ```
 
 2. configure the build on your machine by loading the Apigee jars into
    your local cache.  You need to do this once, ever, on the machine doing
@@ -65,7 +102,7 @@ if YOU DO wish to build it, here's how you can do so:
    ```
 
 4. if you edit proxy bundles offline, copy the resulting jar file, available in
-   target/edge-java-callout-prng-1.0.1.jar to your apiproxy/resources/java directory.  If you
+   target/edge-java-callout-prng-1.0.2.jar to your apiproxy/resources/java directory.  If you
    don't edit proxy bundles offline, upload the jar file into the API Proxy via the Edge
    API Proxy Editor . Also upload the Guava jar from the target/lib directory.
 
@@ -101,7 +138,7 @@ if YOU DO wish to build it, here's how you can do so:
 
 - Apigee Edge expressions v1.0
 - Apigee Edge message-flow v1.0
-- Google Guava 18.0
+- Google Guava 24.1.1-jre
 
 The first two jars must be available on the classpath for the compile to succeed. The
 buildsetup.sh script will download these files for you automatically, and will insert
@@ -118,14 +155,13 @@ The Guava Jar must be uploaded with your proxy bundle.
 ## Notes
 
 There is one callout class, com.google.apigee.edgecallouts.prng.SecureRandomCallout ,
-which uses java.security.SecureRandom to generate random values.
-
+which uses [java.security.SecureRandom](https://docs.oracle.com/javase/8/docs/api/java/security/SecureRandom.html) to generate random values.
 
 ## Support
 
 This callout is open-source software, and is not a supported part of Apigee Edge.
 If you need assistance, you can try inquiring on
-[The Apigee Community Site](https://community.apigee.com).  There is no service-level
+[the Apigee Community Site](https://community.apigee.com).  There is no service-level
 guarantee for responses to inquiries regarding this callout.
 
 
