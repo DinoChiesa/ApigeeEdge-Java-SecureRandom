@@ -1,9 +1,9 @@
 # Java Secure Pseudo Random Number Generator
 
 This directory contains the Java source code and pom.xml file required
-to compile a simple Java callout for Apigee Edge. The callout uses
+to compile a simple Java callout for Apigee. The callout uses
 java.security.SecureRandom to generate random numbers (ints, UUIDs, or
-Gaussian values) within a policy Apigee Edge proxy, and sets a context
+Gaussian values) within a policy Apigee proxy, and sets a context
 variable with that information.
 
 ## Disclaimer
@@ -34,9 +34,10 @@ The properties:
 
 | Property | Required? | description |
 |:---------|:---------|:---------|
-| algorithm | no |one of the algorithms returned by Java's [java.security.Security.getProviders()](https://docs.oracle.com/javase/7/docs/api/java/security/Security.html#getProviders()). Typically you will use one of these:<ul><li>SHA1PRNG</li><li>NativePRNG</li></ul> Defaults to SHA1PRNG |
-| output-type | no | uuid, gaussian, or int. Defaults to int. A Gaussian output will return the next pseudorandom, Gaussian ("normally") distributed double value with mean 0.0 and standard deviation 1.0, as returned by [java.util.Random.nextGaussian()](https://docs.oracle.com/javase/7/docs/api/java/util/Random.html#nextGaussian()) |
-| decimal-digits | no | The number of decimal digits with which to render the value generated for the Gaussian distribution. The default is 12.  This is ignored when the output-type is int. |
+| algorithm | no |one of the algorithms returned by Java's [java.security.Security.getProviders()](https://docs.oracle.com/javase/8/docs/api/java/security/Security.html#getProviders()). Typically you will use one of these:<ul><li>SHA1PRNG</li><li>NativePRNG</li></ul> Defaults to SHA1PRNG |
+| output-type | no | `uuid`, `gaussian`, or `int`. Defaults to int. A Gaussian output will return the next pseudorandom, Gaussian ("normally") distributed double value with mean 0.0 and standard deviation 1.0, as returned by [java.util.Random.nextGaussian()](https://docs.oracle.com/javase/7/docs/api/java/util/Random.html#nextGaussian()) |
+| decimal-digits | no | The number of decimal digits with which to render the value generated for the Gaussian distribution. The default is 12.  Used only when `output-type` is `gaussian`. |
+| range | no | The min,max range for integer values, inclusive. Used only when  `output-type` is `int`. |
 
 The policy caches the java.security.SecureRandom and re-uses it for multiple threads. This means it should perform well at high load and concurrency.
 
@@ -102,15 +103,15 @@ if YOU DO wish to build it, here's how you can do so:
    ```
 
 4. if you edit proxy bundles offline, copy the resulting jar file, available in
-   target/edge-java-callout-prng-1.0.2.jar to your apiproxy/resources/java directory.  If you
-   don't edit proxy bundles offline, upload the jar file into the API Proxy via the Edge
-   API Proxy Editor . Also upload the Guava jar from the target/lib directory.
+   target/apigee-java-callout-prng-20220802.jar to your apiproxy/resources/java directory.  If you
+   don't edit proxy bundles offline, upload the jar file into the API Proxy via the Apigee
+   API Proxy Editor .
 
 5. include an XML file for the Java callout policy in your
    apiproxy/resources/policies directory. It should look as shown above.
 
-6. use the Edge UI, or a command-line tool like [pushapi](https://github.com/carloseberhardt/apiploy) or [importAndDeploy](https://github.com/DinoChiesa/apigee-edge-js/blob/master/examples/importAndDeploy.js) or similar to
-   import the proxy into an Edge organization, and then deploy the proxy .
+6. use the APigee UI, or a command-line tool like [apigeecli](https://github.com/apigee/apigeecli) or [importAndDeploy](https://github.com/DinoChiesa/apigee-edge-js-examples/blob/main/importAndDeploy.js) or similar to
+   import the proxy into an Apigee organization, and then deploy the proxy .
    Eg,
    ```
    node importAndDeploy.js -v -o ORGNAME -e test -n prng -d bundle
@@ -118,19 +119,20 @@ if YOU DO wish to build it, here's how you can do so:
 
 7. Use a client to generate and send http requests to the example proxy. Eg,
    ```
-   curl -i http://ORGNAME-test.apigee.net/prng/int
+   endpoint=https://whatever.api.com
+   curl -i $endpoint/prng/int
    ```
 
    or
 
    ```
-   curl -i http://ORGNAME-test.apigee.net/prng/gaussian
+   curl -i $endpoint/prng/gaussian
    ```
 
    or
 
    ```
-   curl -i http://ORGNAME-test.apigee.net/prng/uuid
+   curl -i $endpoint/prng/uuid
    ```
 
 
@@ -138,7 +140,6 @@ if YOU DO wish to build it, here's how you can do so:
 
 - Apigee Edge expressions v1.0
 - Apigee Edge message-flow v1.0
-- Google Guava 24.1.1-jre
 
 The first two jars must be available on the classpath for the compile to succeed. The
 buildsetup.sh script will download these files for you automatically, and will insert
@@ -150,22 +151,20 @@ These jars are produced by Apigee; contact Apigee support to obtain these jars t
 the compile, or get them here:
 https://github.com/apigee/api-platform-samples/tree/master/doc-samples/java-cookbook/lib
 
-The Guava Jar must be uploaded with your proxy bundle.
-
 ## Notes
 
-There is one callout class, com.google.apigee.edgecallouts.prng.SecureRandomCallout ,
+There is one callout class, com.google.apigee.callouts.prng.SecureRandomCallout ,
 which uses [java.security.SecureRandom](https://docs.oracle.com/javase/8/docs/api/java/security/SecureRandom.html) to generate random values.
 
 ## Support
 
 This callout is open-source software, and is not a supported part of Apigee Edge.
 If you need assistance, you can try inquiring on
-[the Apigee Community Site](https://community.apigee.com).  There is no service-level
+[the Apigee Community Site](https://www.googlecloudcommunity.com/gc/Apigee/bd-p/cloud-apigee).  There is no service-level
 guarantee for responses to inquiries regarding this callout.
 
 
 ## LICENSE
 
-This material is copyright 2015-2018 Google LLC.
+This material is Copyright © 2015-2022 Google LLC.
 and is licensed under the Apache 2.0 license. See the [LICENSE](LICENSE) file.

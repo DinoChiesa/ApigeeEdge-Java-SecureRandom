@@ -1,4 +1,4 @@
-<ProxyEndpoint name='endpoint1'>
+<ProxyEndpoint name="endpoint1">
   <Description>Proxy for Java callout to do Secure RNG</Description>
   <HTTPProxyConnection>
     <BasePath>/prng</BasePath>
@@ -7,65 +7,105 @@
   </HTTPProxyConnection>
 
   <FaultRules/>
+  <DefaultFaultRule>
+    <AlwaysEnforce>true</AlwaysEnforce>
+    <Step>
+      <Name>AM-Inject-Proxy-Revision-Header</Name>
+    </Step>
+  </DefaultFaultRule>
 
   <PreFlow name="PreFlow">
-      <Request/>
-      <Response>
-      </Response>
+    <Request/>
+    <Response>
+      <Step>
+        <Name>AM-Clean-Request-Headers-From-Response</Name>
+      </Step>
+    </Response>
   </PreFlow>
 
   <PostFlow name="PostFlow">
-      <Request/>
-      <Response>
-      </Response>
+    <Request/>
+    <Response>
+      <Step>
+        <Name>AM-Inject-Proxy-Revision-Header</Name>
+      </Step>
+    </Response>
   </PostFlow>
 
   <Flows>
-    <Flow name='test1'>
+    <Flow name="test1">
       <Description>get random int number</Description>
       <Request/>
       <Response>
-        <Step><Name>Java-PRNG-int</Name></Step>
-        <Step><Name>AM-GoodResponse</Name></Step>
+        <Step>
+          <Name>Java-PRNG-int</Name>
+        </Step>
+        <Step>
+          <Name>AM-Good-Response</Name>
+        </Step>
       </Response>
       <Condition>(proxy.pathsuffix ~ "/int") and (request.verb = "GET")</Condition>
     </Flow>
 
-    <Flow name='test2'>
+    <Flow name="test1a">
+      <Description>get random int number within a range</Description>
+      <Request>
+        <Step>
+          <Name>RF-Missing-Query-Param</Name>
+          <Condition>request.queryparam.max = null</Condition>
+        </Step>
+      </Request>
+      <Response>
+        <Step>
+          <Name>Java-PRNG-int-range</Name>
+        </Step>
+        <Step>
+          <Name>AM-Good-Response</Name>
+        </Step>
+      </Response>
+      <Condition>(proxy.pathsuffix ~ "/intrange") and (request.verb = "GET")</Condition>
+    </Flow>
+
+    <Flow name="test2">
       <Description>get random Gaussian number</Description>
       <Request/>
       <Response>
-        <Step><Name>Java-PRNG-gaussian</Name></Step>
-        <Step><Name>AM-GoodResponse</Name></Step>
+        <Step>
+          <Name>Java-PRNG-Gaussian</Name>
+        </Step>
+        <Step>
+          <Name>AM-Good-Response</Name>
+        </Step>
       </Response>
       <Condition>(proxy.pathsuffix ~ "/gaussian") and (request.verb = "GET")</Condition>
     </Flow>
 
-    <Flow name='test3'>
+    <Flow name="test3">
       <Description>get random UUID</Description>
       <Request/>
       <Response>
-        <Step><Name>Java-PRNG-uuid</Name></Step>
-        <Step><Name>AM-GoodResponseUUID</Name></Step>
+        <Step>
+          <Name>Java-PRNG-UUID</Name>
+        </Step>
+        <Step>
+          <Name>AM-Good-Response-UUID</Name>
+        </Step>
       </Response>
       <Condition>(proxy.pathsuffix ~ "/uuid") and (request.verb = "GET")</Condition>
     </Flow>
 
-    <Flow name='unknown'>
-      <!--
-           applies as a "default" flow, in case none of the conditions
-           for the above flows evaluated to true.
-      -->
+    <Flow name="unknown">
       <Description>Unknown request</Description>
       <Request>
-        <Step><Name>RF-UnknownRequest</Name></Step>
+        <Step>
+          <Name>RF-Unknown-Request</Name>
+        </Step>
       </Request>
       <Response/>
     </Flow>
 
   </Flows>
 
-  <!-- no target -->
-  <RouteRule name='LoopbackRoute'/>
+  <RouteRule name="LoopbackRoute"/>
 
 </ProxyEndpoint>

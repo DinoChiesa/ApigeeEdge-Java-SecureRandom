@@ -1,8 +1,9 @@
-<JavaCallout name='Java-PRNG-Gaussian'>
+<JavaCallout name='Java-PRNG-int-range'>
   <ClassName>com.google.apigee.callouts.prng.SecureRandomCallout</ClassName>
   <ResourceURL>java://apigee-java-callout-prng-20220802.jar</ResourceURL>
   <Properties>
     <Property name='algorithm'>SHA1PRNG</Property>
-    <Property name='output-type'>gaussian</Property>
+    <Property name='output-type'>int</Property>
+    <Property name='range'>{request.queryparam.min:0},{request.queryparam.max}</Property>
   </Properties>
 </JavaCallout>

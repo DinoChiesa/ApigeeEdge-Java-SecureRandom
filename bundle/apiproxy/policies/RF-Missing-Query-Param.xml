@@ -1,0 +1,12 @@
+<RaiseFault name='RF-Missing-Query-Param'>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+  <FaultResponse>
+    <Set>
+      <Payload contentType='application/json'>{
+  "error": "missing query param: max"
+}
+</Payload>
+      <StatusCode>400</StatusCode>
+    </Set>
+  </FaultResponse>
+</RaiseFault>

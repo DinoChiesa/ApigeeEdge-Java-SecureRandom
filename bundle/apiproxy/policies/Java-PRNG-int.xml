@@ -1,6 +1,6 @@
 <JavaCallout name='Java-PRNG-int'>
-  <ClassName>com.google.apigee.edgecallouts.prng.SecureRandomCallout</ClassName>
-  <ResourceURL>java://edge-java-callout-prng-1.0.2.jar</ResourceURL>
+  <ClassName>com.google.apigee.callouts.prng.SecureRandomCallout</ClassName>
+  <ResourceURL>java://apigee-java-callout-prng-20220802.jar</ResourceURL>
   <Properties>
     <Property name='algorithm'>SHA1PRNG</Property>
     <Property name='output-type'>int</Property>

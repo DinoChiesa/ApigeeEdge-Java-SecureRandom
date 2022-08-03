@@ -1,4 +1,4 @@
-<AssignMessage name='AM-GoodResponse'>
+<AssignMessage name='AM-Good-Response-UUID'>
   <Remove>
     <Headers/>
   </Remove>
@@ -6,7 +6,7 @@
     <Payload contentType='application/json'>{
   "message" : "ok",
   "system.uuid" : "{system.uuid}",
-  "random" : {prng_random}
+  "random" : "{prng_random}"
 }
 </Payload>
     <StatusCode>200</StatusCode>
